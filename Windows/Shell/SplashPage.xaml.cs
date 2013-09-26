@@ -26,19 +26,23 @@ namespace Shell
         {
             Debug.WriteLine("SplashPage loaded");
 
-            var delay = Task.Run(async () =>
-            {
-                Debug.WriteLine("Doing async work");
-                await Task.Delay(2000);
-                Debug.WriteLine("Async work done");
-            });
-            Bootstrapper.BuildUp(rootFrame);
-
-            await Task.WhenAll(delay);
+            await Task.WhenAll(RunBootstrapper(), SomeAsyncWork());
 
             UpdateResources();
 
             NavigateAwayFromSplashPage();
+        }
+
+        async Task SomeAsyncWork()
+        {
+            Debug.WriteLine("Doing async work");
+            await Task.Delay(2000);
+            Debug.WriteLine("Async work done");
+        }
+
+        async Task RunBootstrapper()
+        {
+            Bootstrapper.BuildUp(rootFrame);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -58,6 +62,6 @@ namespace Shell
         private void UpdateResources()
         {
             App.Current.Resources.Add("LocalizedStrings", new LocalizedStrings());
-        }        
+        }
     }
 }
