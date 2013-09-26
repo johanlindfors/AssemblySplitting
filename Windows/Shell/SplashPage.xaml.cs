@@ -26,7 +26,7 @@ namespace Shell
         {
             Debug.WriteLine("SplashPage loaded");
 
-            await Task.WhenAll(RunBootstrapper(), SomeAsyncWork());
+            await Task.WhenAll(SomeAsyncWork(),RunBootstrapper());
 
             UpdateResources();
 
