@@ -1,6 +1,7 @@
 ﻿using SharedLibrary.Infrastructure;
 using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels.Interfaces;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace SharedLibrary.ViewModels
@@ -13,6 +14,11 @@ namespace SharedLibrary.ViewModels
             : base(navigationService)
         {
             SaveCommand = new RelayCommand(SaveAction) { IsEnabled = true };
+        }
+
+        ~MainViewModel()
+        {
+            Debug.WriteLine("MainViewModel finalizer");
         }
 
         void SaveAction()
