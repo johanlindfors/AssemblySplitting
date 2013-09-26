@@ -1,5 +1,6 @@
 ﻿using SharedLibrary.Infrastructure;
 using SharedLibrary.Services.Interfaces;
+using SharedLibrary.ViewModels.Interfaces;
 using Windows.UI.Xaml.Controls;
 
 namespace Pages
@@ -9,13 +10,8 @@ namespace Pages
         public MainPage()
         {
             this.InitializeComponent();
-        }
 
-        protected override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            var canGoBack = ServiceLocator.Resolve<INavigationService>().CanGoBack;
+            this.DataContext = ServiceLocator.Resolve<IMainViewModel>();
         }
     }
 }

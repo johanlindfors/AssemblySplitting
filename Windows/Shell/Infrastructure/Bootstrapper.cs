@@ -3,6 +3,8 @@ using Microsoft.Practices.Unity;
 using Pages;
 using SharedLibrary.Infrastructure;
 using SharedLibrary.Services.Interfaces;
+using SharedLibrary.ViewModels;
+using SharedLibrary.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,14 +24,16 @@ namespace Shell.Infrastructure
 
             var navigationService = new FrameNavigationService(frame);
             navigationService.RegisterView("MainPage", typeof(MainPage));
-            navigationService.RegisterView("SecondPage", "/Pages;component/SecondPage.xaml");
-            navigationService.RegisterView("ThirdPage", "/Pages;component/ThirdPage.xaml");
-
+            navigationService.RegisterView("SecondPage", typeof(SecondPage));
+            
             var x = typeof(MainPage); // Required to force JIT of Pages.dll
 
             var container = new UnityContainer();
             container.RegisterInstance<INavigationService>(navigationService);
             container.RegisterType<IDialogService, DialogService>();
+
+            // ViewModels
+            container.RegisterType<IMainViewModel, MainViewModel>();
 
             new ServiceLocator(new UnityContainerWrapper(container));
 
