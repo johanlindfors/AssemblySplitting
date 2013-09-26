@@ -4,16 +4,16 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace SharedLibrary.Infrastructure
 {
     public interface IViewModelBase : INotifyPropertyChanged
     {
-        void ViewNavigatedTo();
-        void ViewNavigatingFrom();
-
-        bool IsPremium { get; }
-        bool UserInteractionEnabled { get; set; }
+        bool IsBusy { get; set; }
+        
+        Task ViewNavigatedTo();
+        Task ViewNavigatingFrom();
     }
 
     [DataContract]
@@ -40,7 +40,7 @@ namespace SharedLibrary.Infrastructure
             set { SetProperty(ref userInteractionEnabled, value, () => UserInteractionEnabled); }
         }
 
-        public virtual void ViewNavigatedTo() { }
-        public virtual void ViewNavigatingFrom() { }
+        public virtual Task ViewNavigatedTo() { return null; }
+        public virtual Task ViewNavigatingFrom() { return null; }
     }
 }
