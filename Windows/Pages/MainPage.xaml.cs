@@ -8,6 +8,7 @@ namespace Pages
     public sealed partial class MainPage : Page
     {
         IMainViewModel ViewModel { get { return this.DataContext as IMainViewModel; } }
+
         public MainPage()
         {
             this.InitializeComponent();

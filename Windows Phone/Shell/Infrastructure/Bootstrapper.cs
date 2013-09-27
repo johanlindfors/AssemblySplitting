@@ -3,6 +3,8 @@ using Microsoft.Practices.Unity;
 using Pages;
 using SharedLibrary.Infrastructure;
 using SharedLibrary.Services.Interfaces;
+using SharedLibrary.ViewModels;
+using SharedLibrary.ViewModels.Interfaces;
 using System.Diagnostics;
 
 namespace Shell.Infrastructure
@@ -23,6 +25,9 @@ namespace Shell.Infrastructure
             var container = new UnityContainer();
             container.RegisterInstance<INavigationService>(navigationService);
             container.RegisterType<IDialogService, DialogService>();
+
+            // ViewModels
+            container.RegisterType<IMainViewModel, MainViewModel>();
 
             new ServiceLocator(new UnityContainerWrapper(container));            
 

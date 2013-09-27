@@ -28,7 +28,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Click="OnButtonClicked">click</Button>
+            <Button Command="{Binding SaveCommand}">click</Button>
         </Grid>
     </Grid>
 

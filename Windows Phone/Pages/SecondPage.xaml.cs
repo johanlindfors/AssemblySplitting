@@ -29,5 +29,11 @@ namespace Pages
                 Debug.WriteLine("Parameter '{0}' = '{1}'", item.Key, item.Value);
             }
         }
+
+        private void OnButtonClicked(object sender, RoutedEventArgs e)
+        {
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
     }
 }
