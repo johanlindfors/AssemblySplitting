@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:transitionLibrary="clr-namespace:Microsoft.Phone.Controls;assembly=TransitionLibrary"
+    xmlns:customTransitions="clr-namespace:TransitionLibrary.Transitions.Transitions;assembly=TransitionLibrary"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
 
@@ -11,4 +13,13 @@
         <ProgressBar IsIndeterminate="True" Margin="0,-200,0,0"/>
     </Grid>
 
+    <transitionLibrary:TransitionService.NavigationOutTransition>
+        <transitionLibrary:NavigationOutTransition>
+            <transitionLibrary:NavigationOutTransition.Forward>
+                <customTransitions:CustomTransition TransitionType="SlideUpAndOut"/>
+                <!--<toolkit:SlideTransition Mode="SlideUpFadeOut"/>-->
+            </transitionLibrary:NavigationOutTransition.Forward>
+        </transitionLibrary:NavigationOutTransition>
+    </transitionLibrary:TransitionService.NavigationOutTransition>
+    
 </phone:PhoneApplicationPage>

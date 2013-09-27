@@ -6,6 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:transitionLibrary="clr-namespace:Microsoft.Phone.Controls;assembly=TransitionLibrary"
+    xmlns:customTransitions="clr-namespace:TransitionLibrary.Transitions.Transitions;assembly=TransitionLibrary"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -31,5 +33,20 @@
             <Button Command="{Binding SaveCommand}">click</Button>
         </Grid>
     </Grid>
+
+    <transitionLibrary:TransitionService.NavigationInTransition>
+        <transitionLibrary:NavigationInTransition>
+            <transitionLibrary:NavigationInTransition.Forward>
+                <customTransitions:CustomTransition TransitionType="SlideUpFromBelow" />
+            </transitionLibrary:NavigationInTransition.Forward>
+        </transitionLibrary:NavigationInTransition>
+    </transitionLibrary:TransitionService.NavigationInTransition>
+    <!--<transitionLibrary:TransitionService.NavigationOutTransition>
+        <transitionLibrary:NavigationOutTransition>
+            <transitionLibrary:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </transitionLibrary:NavigationOutTransition.Forward>
+        </transitionLibrary:NavigationOutTransition>
+    </transitionLibrary:TransitionService.NavigationOutTransition>-->
 
 </phone:PhoneApplicationPage>

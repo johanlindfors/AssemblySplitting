@@ -4,12 +4,44 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:transitionLibrary="clr-namespace:Microsoft.Phone.Controls;assembly=TransitionLibrary"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!--Application Resources-->
     <Application.Resources>
         <!--<library:LocalizedStrings x:Key="LocalizedStrings"/>-->        
         <system:String x:Key="ApplicationName">ASSEMBLY SPLITTING</system:String>
+
+        <Style TargetType="transitionLibrary:TransitionFrame">
+            <Setter Property="Background" Value="{StaticResource PhoneBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="transitionLibrary:TransitionFrame">
+                        <Border x:Name="ClientArea"
+    							Background="{TemplateBinding Background}"
+    							BorderBrush="{TemplateBinding BorderBrush}"
+    							BorderThickness="{TemplateBinding BorderThickness}"
+    							Margin="{TemplateBinding Margin}">
+                            <Grid>
+                                <ContentPresenter
+    									x:Name="FirstContentPresenter"
+    									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <ContentPresenter
+    									x:Name="SecondContentPresenter"
+    									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <!--<userControls:NetworkIndicatorControl Loaded="OnGlobalProgressBarLoaded" VerticalAlignment="Top"/>-->
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

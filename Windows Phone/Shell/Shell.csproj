@@ -136,6 +136,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Storyboards.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Content>
     <Page Include="SplashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +157,10 @@
     <ProjectReference Include="..\..\SharedLibrary\SharedLibrary.csproj">
       <Project>{C610749E-C0B1-4933-BABC-1CBEAF0366F4}</Project>
       <Name>SharedLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TransitionLibrary\TransitionLibrary.csproj">
+      <Project>{C06A076B-E8CA-4D21-8C53-E27BD4FDA010}</Project>
+      <Name>TransitionLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
