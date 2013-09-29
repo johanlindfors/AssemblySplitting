@@ -23,8 +23,11 @@ namespace Shell.Infrastructure
             var x = typeof(MainPage); // Required to force JIT of Pages.dll
 
             var container = new UnityContainer();
+
+            // Services
             container.RegisterInstance<INavigationService>(navigationService);
             container.RegisterType<IDialogService, DialogService>();
+            container.RegisterType<IProtectionService, DPAPIProtectionService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();

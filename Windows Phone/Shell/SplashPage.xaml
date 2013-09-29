@@ -17,7 +17,6 @@
         <transitionLibrary:NavigationOutTransition>
             <transitionLibrary:NavigationOutTransition.Forward>
                 <customTransitions:CustomTransition TransitionType="SlideUpAndOut"/>
-                <!--<toolkit:SlideTransition Mode="SlideUpFadeOut"/>-->
             </transitionLibrary:NavigationOutTransition.Forward>
         </transitionLibrary:NavigationOutTransition>
     </transitionLibrary:TransitionService.NavigationOutTransition>

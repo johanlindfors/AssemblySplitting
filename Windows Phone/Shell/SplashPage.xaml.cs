@@ -18,12 +18,13 @@ namespace Shell
         public SplashPage()
         {
             InitializeComponent();
-
             this.Loaded += OnSplashPageLoaded;
         }
 
         private async void OnSplashPageLoaded(object sender, RoutedEventArgs e)
         {
+            App.Stopwatch.Stop();
+            Debug.WriteLine("Time to display splash: {0}", App.Stopwatch.ElapsedMilliseconds);
             Debug.WriteLine("SplashPage loaded");
 
             var delay = Task.Run(async () => {

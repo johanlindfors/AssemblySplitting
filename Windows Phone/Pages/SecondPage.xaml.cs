@@ -30,7 +30,18 @@ namespace Pages
             }
         }
 
-        private void OnButtonClicked(object sender, RoutedEventArgs e)
+        private async void OnButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var service = ServiceLocator.Resolve<IProtectionService>();
+            var data = "Johan Lindfors";
+            var key = "password";
+
+            var encrypted = await service.ProtectAsync(data, key);
+
+            var decrypted = await service.UnprotectAsync(encrypted, key);
+        }
+
+        void TestGC()
         {
             GC.WaitForPendingFinalizers();
             GC.Collect();

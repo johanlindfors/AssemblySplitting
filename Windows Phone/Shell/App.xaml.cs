@@ -15,12 +15,14 @@ namespace Shell
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; set; }
-
+        public static Stopwatch Stopwatch { get; private set; }
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
         public App()
         {
+            Stopwatch = Stopwatch.StartNew();
+
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 
