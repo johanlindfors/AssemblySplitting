@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using SharedLibrary.Infrastructure;
 using SharedLibrary.Services.Interfaces;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Pages
 {
@@ -30,8 +31,16 @@ namespace Pages
             }
         }
 
-        private async void OnButtonClicked(object sender, RoutedEventArgs e)
+        private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
+            var settings = ServiceLocator.Resolve<ISettingsService>();
+
+            var username = settings.Get<string>("username");
+
+            settings.Set("username", "johanlindfors");
+        }
+
+        async Task TestDPAPI() {
             var service = ServiceLocator.Resolve<IProtectionService>();
             var data = "Johan Lindfors";
             var key = "password";
