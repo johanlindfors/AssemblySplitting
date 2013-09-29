@@ -2,6 +2,7 @@
 using SharedLibrary.Services.Interfaces;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -16,7 +17,16 @@ namespace Pages
         }
 
        
-        private async void OnButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var settings = ServiceLocator.Resolve<ISettingsService>();
+
+            var username = settings.Get<string>("username");
+
+            settings.Set<string>("username", "johanlindfors");
+        }
+
+        async Task TestProtectionService()
         {
             var protectionService = ServiceLocator.Resolve<IProtectionService>();
 

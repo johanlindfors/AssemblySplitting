@@ -112,6 +112,7 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FrameNavigationService.cs" />
     <Compile Include="Services\DPAPIProtectionService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
