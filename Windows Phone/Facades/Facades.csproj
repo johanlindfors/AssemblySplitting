@@ -89,7 +89,6 @@
     <Compile Include="Services\IsolatedStorageService.cs" />
     <Compile Include="Services\RootFrameNavigationService.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Services\XmlSerializerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SharedLibrary\SharedLibrary.csproj">

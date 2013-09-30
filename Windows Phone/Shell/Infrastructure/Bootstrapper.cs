@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Pages;
 using SharedLibrary.Infrastructure;
+using SharedLibrary.Services;
 using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels;
 using SharedLibrary.ViewModels.Interfaces;

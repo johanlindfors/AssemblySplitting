@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Facades.Services
+namespace SharedLibrary.Services
 {
     public class XmlSerializerService : ISerializerService
     {
