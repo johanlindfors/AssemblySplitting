@@ -15,8 +15,7 @@ namespace Pages
         public MainPage()
         {
             InitializeComponent();
-
-            this.DataContext = ServiceLocator.Resolve<IMainViewModel>();
+            //this.DataContext = ServiceLocator.Resolve<IMainViewModel>();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using SharedLibrary.Infrastructure;
+using SharedLibrary.Infrastructure.Ioc;
 using SharedLibrary.Services.Interfaces;
 using Shell.Infrastructure;
 using System.Diagnostics;
@@ -62,6 +63,7 @@ namespace Shell
         private void UpdateResources()
         {
             App.Current.Resources.Add("LocalizedStrings", new LocalizedStrings());
+            App.Current.Resources.Add("ViewModelLocator", new ViewModelLocator(ServiceLocator.Resolve<IContainer>()));
         }
     }
 }

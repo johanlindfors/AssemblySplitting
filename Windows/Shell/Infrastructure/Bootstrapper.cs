@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Pages;
 using SharedLibrary.Infrastructure;
+using SharedLibrary.Infrastructure.Ioc;
 using SharedLibrary.Services;
 using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels;
@@ -41,8 +42,12 @@ namespace Shell.Infrastructure
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();
+            
+            // Register container for ViewModelLocator
+            var containerWrapper = new UnityContainerWrapper(container);
+            container.RegisterInstance<IContainer>(containerWrapper);
 
-            new ServiceLocator(new UnityContainerWrapper(container));
+            new ServiceLocator(containerWrapper);
 
             Debug.WriteLine("Bootstrapping ends");
         }

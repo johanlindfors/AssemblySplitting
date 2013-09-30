@@ -12,8 +12,6 @@ namespace Pages
         public MainPage()
         {
             this.InitializeComponent();
-
-            this.DataContext = ServiceLocator.Resolve<IMainViewModel>();
         }
 
         protected override async void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)

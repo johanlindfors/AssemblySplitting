@@ -10,6 +10,7 @@ using Facades.Services;
 using Microsoft.Practices.Unity;
 using Shell.Infrastructure;
 using System.Windows;
+using SharedLibrary.Infrastructure.Ioc;
 
 namespace Shell
 {
@@ -57,6 +58,7 @@ namespace Shell
         private void UpdateResources()
         {
             App.Current.Resources.Add("LocalizedStrings",new LocalizedStrings());
+            App.Current.Resources.Add("ViewModelLocator", new ViewModelLocator(ServiceLocator.Resolve<IContainer>()));
         }        
     }
 }
