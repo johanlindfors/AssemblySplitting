@@ -21,6 +21,11 @@ namespace SharedLibrary.Infrastructure
     {
         protected INavigationService navigationService;
 
+        public ViewModelBase()
+        {
+
+        }
+
         public ViewModelBase(INavigationService navigationService)
         {
             this.navigationService = navigationService;

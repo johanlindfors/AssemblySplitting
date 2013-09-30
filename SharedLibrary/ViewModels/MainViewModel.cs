@@ -11,6 +11,11 @@ namespace SharedLibrary.ViewModels
     {
         public ICommand SaveCommand { get; private set; }
 
+        public MainViewModel()
+        {
+
+        }
+
         public MainViewModel(INavigationService navigationService)
             : base(navigationService)
         {
