@@ -49,7 +49,9 @@
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
     <Compile Include="Services\Interfaces\IProtectionService.cs" />
+    <Compile Include="Services\Interfaces\ISerializerService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\Interfaces\IStorageService.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>

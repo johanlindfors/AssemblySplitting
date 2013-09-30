@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using SharedLibrary.Infrastructure;
 using SharedLibrary.Services.Interfaces;
 using System.Diagnostics;
@@ -14,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace Pages
 {
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
     public partial class SecondPage : PhoneApplicationPage
     {
         public SecondPage()
@@ -31,7 +32,18 @@ namespace Pages
             }
         }
 
-        private void OnButtonClicked(object sender, RoutedEventArgs e)
+        private async void OnButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var johan = new Person { Name = "Johan", Age = 40 };
+            var filename = "johan.xml";
+
+            var storage = ServiceLocator.Resolve<IStorageService>();
+            await storage.Write(johan, filename);
+
+            var objRead = await storage.Read<Person>(filename);
+        }
+
+        void TestSettings()
         {
             var settings = ServiceLocator.Resolve<ISettingsService>();
 
@@ -40,7 +52,8 @@ namespace Pages
             settings.Set("username", "johanlindfors");
         }
 
-        async Task TestDPAPI() {
+        async Task TestDPAPI()
+        {
             var service = ServiceLocator.Resolve<IProtectionService>();
             var data = "Johan Lindfors";
             var key = "password";

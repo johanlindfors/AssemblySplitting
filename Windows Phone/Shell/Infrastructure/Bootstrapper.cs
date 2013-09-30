@@ -29,6 +29,8 @@ namespace Shell.Infrastructure
             container.RegisterType<IDialogService, DialogService>();
             container.RegisterType<IProtectionService, DPAPIProtectionService>();
             container.RegisterType<ISettingsService, SettingsService>();
+            container.RegisterType<ISerializerService, XmlSerializerService>();
+            container.RegisterType<IStorageService, IsolatedStorageService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();
