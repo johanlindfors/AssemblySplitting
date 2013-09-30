@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Pages;
 using SharedLibrary.Infrastructure;
+using SharedLibrary.Services;
 using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels;
 using SharedLibrary.ViewModels.Interfaces;
@@ -35,6 +36,8 @@ namespace Shell.Infrastructure
             container.RegisterType<IDialogService, DialogService>();
             container.RegisterType<IProtectionService, DPAPIProtectionService>();
             container.RegisterType<ISettingsService, SettingsService>();
+            container.RegisterType<ISerializerService, XmlSerializerService>();
+            container.RegisterType<IStorageService, LocalFolderStorageService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();
