@@ -1,0 +1,7 @@
+﻿<viewModels:MainViewModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:infrastructure="clr-namespace:SharedLibrary.Infrastructure;assembly=SharedLibrary"
+    xmlns:viewModels="clr-namespace:SharedLibrary.ViewModels;assembly=SharedLibrary" IsBusy="True">
+
+</viewModels:MainViewModel>

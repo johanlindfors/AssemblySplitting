@@ -9,6 +9,12 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Pages
 {
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
     public sealed partial class SecondPage : Page
     {
         public SecondPage()
@@ -16,8 +22,19 @@ namespace Pages
             this.InitializeComponent();
         }
 
-       
-        private void OnButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+
+        private async void OnButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var johan = new Person { Name = "Johan", Age = 40 };
+            var filename = "johan.xml";
+
+            var storage = ServiceLocator.Resolve<IStorageService>();
+            await storage.Write(johan, filename);
+
+            var objRead = await storage.Read<Person>(filename);
+        }
+
+        void TestSettings()
         {
             var settings = ServiceLocator.Resolve<ISettingsService>();
 

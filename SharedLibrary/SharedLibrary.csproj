@@ -42,6 +42,7 @@
     <Compile Include="Infrastructure\ViewModelBase.cs" />
     <Compile Include="Models\SocialResponse.cs" />
     <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Infrastructure\ViewModelLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -51,8 +52,11 @@
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
     <Compile Include="Services\Interfaces\IProtectionService.cs" />
+    <Compile Include="Services\Interfaces\ISerializerService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
+    <Compile Include="Services\Interfaces\IStorageService.cs" />
+    <Compile Include="Services\XmlSerializerService.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>

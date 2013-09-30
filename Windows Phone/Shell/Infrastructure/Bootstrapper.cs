@@ -2,6 +2,8 @@
 using Microsoft.Practices.Unity;
 using Pages;
 using SharedLibrary.Infrastructure;
+using SharedLibrary.Infrastructure.Ioc;
+using SharedLibrary.Services;
 using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels;
 using SharedLibrary.ViewModels.Interfaces;
@@ -23,13 +25,23 @@ namespace Shell.Infrastructure
             var x = typeof(MainPage); // Required to force JIT of Pages.dll
 
             var container = new UnityContainer();
+
+            // Services
             container.RegisterInstance<INavigationService>(navigationService);
             container.RegisterType<IDialogService, DialogService>();
+            container.RegisterType<IProtectionService, DPAPIProtectionService>();
+            container.RegisterType<ISettingsService, SettingsService>();
+            container.RegisterType<ISerializerService, XmlSerializerService>();
+            container.RegisterType<IStorageService, IsolatedStorageService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();
 
-            new ServiceLocator(new UnityContainerWrapper(container));            
+            // Register container for ViewModelLocator
+            var containerWrapper = new UnityContainerWrapper(container);
+            container.RegisterInstance<IContainer>(containerWrapper);
+
+            new ServiceLocator(containerWrapper);
 
             Debug.WriteLine("Bootstrapping ends");        
         }
