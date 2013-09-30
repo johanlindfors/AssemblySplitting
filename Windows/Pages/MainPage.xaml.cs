@@ -20,6 +20,17 @@ namespace Pages
         {
             base.OnNavigatedTo(e);
 
+            var socialService = ServiceLocator.Resolve<ISocialService>();
+            var autoLogin = await socialService.ValidateToken();
+            if (!autoLogin)
+            {
+                var result = await socialService.SignIn();
+                if (result.Result)
+                {
+                    var validationResponse = await socialService.ValidateToken();
+                }
+            }
+
             await ViewModel.ViewNavigatedTo();
         }
     }

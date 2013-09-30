@@ -35,6 +35,7 @@ namespace Shell.Infrastructure
             container.RegisterType<IDialogService, DialogService>();
             container.RegisterType<IProtectionService, DPAPIProtectionService>();
             container.RegisterType<ISettingsService, SettingsService>();
+            container.RegisterType<ISocialService, FacebookService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();
