@@ -34,6 +34,7 @@ namespace Shell.Infrastructure
 
             // Services
             container.RegisterInstance<INavigationService>(navigationService);
+
             container.RegisterType<IDialogService, DialogService>();
             container.RegisterType<IProtectionService, DPAPIProtectionService>();
             container.RegisterType<ISettingsService, SettingsService>();

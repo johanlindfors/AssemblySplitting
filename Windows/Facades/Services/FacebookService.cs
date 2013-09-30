@@ -54,6 +54,7 @@ namespace Facades.Services
                         {
                             result.Result = true;
                             settings.Set(FACEBOOK_TOKEN_SETTING, accessToken);
+                            var userInfo = await GetUserInfo();
                         }
                         break;
                     case WebAuthenticationStatus.ErrorHttp:
@@ -80,6 +81,33 @@ namespace Facades.Services
                 result = data.Substring(tokenBeginsAtIndex, tokenEndsAtIndex - tokenBeginsAtIndex - 1);
             }
             catch { }
+            return result;
+        }
+
+        /*
+         {"id":"605294645","name":"Johan Lindfors","first_name":"Johan","last_name":"Lindfors","link":"https://www.facebook.com/johan.lindfors","username":"johan.lindfors","hometown":{"id":"106505586052951","name":"Stockholm, Sweden"},"location":{"id":"103138059726221","name":"Vallentuna"},"work":[{"employer":{"id":"141300472625433","name":"Coderox AB"},"location":{"id":"106505586052951","name":"Stockholm, Sweden"},"position":{"id":"138050029568986","name":"Owner and Founder"},"description":"Coderox AB focuses on building amazing applications and solutions on the Windows Phone 7 platform and ecosystem.","start_date":"2011-09-01"},{"employer":{"id":"230345967120333","name":"Infozone AB"},"location":{"id":"106505586052951","name":"Stockholm, Sweden"},"position":{"id":"108366822551652","name":"Head of Development"},"description":"Leading the Development Business Unit","start_date":"2011-01-01","end_date":"2011-08-01"},{"employer":{"id":"20528438720","name":"Microsoft"},"position":{"id":"186297501410305","name":"Technical Evangelism Manager"},"description":"Ansvarar för den tekniska evangelisering av Microsofts produkter och tekniker mot utvecklare.","start_date":"1998-04-01","end_date":"2010-12-01"}],"education":[{"school":{"id":"111037798920964","name":"Soltorgsgymnasiet"},"type":"High School"},{"school":{"id":"107637795932083","name":"Högskolan Dalarna"},"year":{"id":"137409666290034","name":"1995"},"concentration":[{"id":"163891336996704","name":"Datateknik"}],"type":"College"}],"gender":"male","email":"johan.lindfors@live.com","timezone":2,"locale":"en_US","verified":true,"updated_time":"2013-09-22T12:24:26+0000"}
+         */
+        private async Task<UserInfo> GetUserInfo()
+        {
+            UserInfo result = null;
+            try
+            {
+                var accessToken = settings.Get<string>(FACEBOOK_TOKEN_SETTING);
+                if (!string.IsNullOrEmpty(accessToken))
+                {
+                    var facebookClient = new FacebookClient(accessToken);
+                    dynamic userInfo = await facebookClient.GetTaskAsync("me");
+                    result = new UserInfo()
+                    {
+                        Id = int.Parse(userInfo.id),
+                        Name = userInfo.name,
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
             return result;
         }
 
@@ -116,6 +144,10 @@ namespace Facades.Services
                         access_token = accessToken 
                     });
                     result = validationResult.data.is_valid;
+                    if (result)
+                    {
+                        var userInfo = await GetUserInfo();
+                    }
                 }
             }
             catch(Exception ex)
