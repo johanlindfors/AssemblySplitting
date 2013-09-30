@@ -1,4 +1,5 @@
 ﻿using Facebook;
+using Facebook.Client;
 using SharedLibrary.Models;
 using SharedLibrary.Services.Interfaces;
 using System;
@@ -18,6 +19,7 @@ namespace Facades.Services
         const string TOKEN_PARAMETER = @"access_token=";
         const string EXPIRES_PARAMETER = @"expires_in=";
         const string FACEBOOK_TOKEN_SETTING = "facebook_token";
+        const string FACEBOOK_TOKEN_EXPIRES_AT_SETTING = "facebook_token_expires_at";
 
         readonly ISettingsService settings;
 
@@ -32,42 +34,38 @@ namespace Facades.Services
 
             try
             {
-                var facebookClient = new FacebookClient();
-                var requestUri = facebookClient.GetLoginUrl(new
-                {
-                    client_id = APP_ID,
-                    redirect_uri = REDIRECT_URL,
-                    response_type = "token",
-                });
+                var facebookClient = new FacebookSessionClient(APP_ID);
+                var session = await facebookClient.LoginAsync();
 
-                var callbackUri = new Uri(REDIRECT_URL);
-                var authenticationResult = await WebAuthenticationBroker.AuthenticateAsync(
-                    WebAuthenticationOptions.None,
-                    requestUri, callbackUri
-                    );
-
-                switch (authenticationResult.ResponseStatus)
+                if (!string.IsNullOrEmpty(session.AccessToken))
                 {
-                    case WebAuthenticationStatus.Success:
-                        var accessToken = ParseAuthenticationToken(authenticationResult.ResponseData);
-                        if (!string.IsNullOrEmpty(accessToken))
-                        {
-                            result.Result = true;
-                            settings.Set(FACEBOOK_TOKEN_SETTING, accessToken);
-                            var userInfo = await GetUserInfo();
-                        }
-                        break;
-                    case WebAuthenticationStatus.ErrorHttp:
-                    case WebAuthenticationStatus.UserCancel:
-                    default:
-                        break;
+                    result.Result = true;
+                    settings.Set(FACEBOOK_TOKEN_SETTING, session.AccessToken);
+                    settings.Set(FACEBOOK_TOKEN_EXPIRES_AT_SETTING, session.Expires.ToFileTimeUtc());
+                    var userInfo = await GetUserInfo();
                 }
+                Debug.WriteLine(session.AccessToken);
+                Debug.WriteLine(session.FacebookId);
+                Debug.WriteLine(session.Expires);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 result.Result = false;
             }
+            return result;
+        }
+
+        private DateTime ParseAuthenticationTokenExpiresAt(string data)
+        {
+            var result = DateTime.UtcNow;
+            try
+            {
+                var tokenEndsAtIndex = data.IndexOf(EXPIRES_PARAMETER) + EXPIRES_PARAMETER.Length;
+                var secondsAsString = data.Substring(tokenEndsAtIndex, data.Length - tokenEndsAtIndex);
+                result = DateTime.UtcNow.AddSeconds(double.Parse(secondsAsString));
+            }
+            catch { }
             return result;
         }
 
@@ -139,9 +137,10 @@ namespace Facades.Services
                 if (!string.IsNullOrEmpty(accessToken))
                 {
                     var facebookClient = new FacebookClient(accessToken);
-                    dynamic validationResult = await facebookClient.GetTaskAsync("debug_token", new { 
-                        input_token = accessToken, 
-                        access_token = accessToken 
+                    dynamic validationResult = await facebookClient.GetTaskAsync("debug_token", new
+                    {
+                        input_token = accessToken,
+                        access_token = accessToken
                     });
                     result = validationResult.data.is_valid;
                     if (result)
@@ -150,7 +149,7 @@ namespace Facades.Services
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }

@@ -122,6 +122,9 @@
     <Reference Include="Facebook">
       <HintPath>..\..\packages\Facebook.6.4.2\lib\win8\Facebook.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook.Client">
+      <HintPath>..\..\packages\Facebook.Client.0.8.0-alpha\lib\win8\Facebook.Client.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
