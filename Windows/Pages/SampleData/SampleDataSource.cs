@@ -6,6 +6,7 @@ using SharedLibrary.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Pages.SampleData
 {
     public sealed class SampleDataSource
     {
+        private const int MAX_ROW_SPAN = 4;
         private static SampleDataSource _sampleDataSource = new SampleDataSource();
 
         private ObservableCollection<SampleDataGroup> _groups = new ObservableCollection<SampleDataGroup>();
@@ -87,18 +89,20 @@ namespace Pages.SampleData
                     int rowSpan = 1;
                     if (currentRowCount == 0)
                     {
-                        rowSpan = random.Next(max_rows-1) + 1;
+                        Debug.WriteLine("New Column");
+                        rowSpan = random.Next(4) + 1;
                     }
                     else
                     {
                         if (currentRowCount < max_rows-2)
-                            rowSpan = random.Next(max_rows-2) + 1;
+                            rowSpan = Math.Min(MAX_ROW_SPAN,random.Next(max_rows-currentRowCount) + 1);
                         else
                             rowSpan = max_rows - currentRowCount;
-                    }
+                    }                    
                     currentRowCount += rowSpan;
                     currentRowCount %= max_rows;
 
+                    Debug.WriteLine("{0}", rowSpan);
                     JsonObject itemObject = itemValue.GetObject();
                     group.Items.Add(new SampleDataItemViewModel(new SampleDataItem(itemObject["UniqueId"].GetString(),
                                                        itemObject["Title"].GetString(),
@@ -111,6 +115,7 @@ namespace Pages.SampleData
                                                            RowSpan = rowSpan,
                                                        });
                 }
+                Debug.WriteLine("New Group");
                 if (currentRowCount > 0)
                     group.Items.Add(new SampleAdViewModel("Assets/White.png")
                     {

@@ -15,11 +15,14 @@ namespace Facades.Services
             get
             {
                 var height = Window.Current.Bounds.Height;
-                if (height <= 768)
+                if (height <= 800)
                     return 4;
                 else if (height <= 900)
                     return 5;
-                return 6;
+                else if (height < 1400)
+                    return 6;
+                else
+                    return 8;
             }
         }
     }
