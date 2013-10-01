@@ -1,0 +1,126 @@
+﻿using SharedLibrary.Models;
+using SharedLibrary.ViewModels;
+using SharedLibrary.ViewModels.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Data.Json;
+using Windows.Storage;
+
+namespace Pages.SampleData
+{
+    /// <summary>
+    /// Creates a collection of groups and items with content read from a static json file.
+    /// 
+    /// SampleDataSource initializes with data read from a static json file included in the 
+    /// project.  This provides sample data at both design-time and run-time.
+    /// </summary>
+    public sealed class SampleDataSource
+    {
+        private static SampleDataSource _sampleDataSource = new SampleDataSource();
+
+        private ObservableCollection<SampleDataGroup> _groups = new ObservableCollection<SampleDataGroup>();
+        public ObservableCollection<SampleDataGroup> Groups
+        {
+            get { return this._groups; }
+        }
+
+        public static async Task<IEnumerable<SampleDataGroup>> GetGroupsAsync()
+        {
+            await _sampleDataSource.GetSampleDataAsync();
+
+            return _sampleDataSource.Groups;
+        }
+
+        public static async Task<SampleDataGroup> GetGroupAsync(string uniqueId)
+        {
+            await _sampleDataSource.GetSampleDataAsync();
+            // Simple linear search is acceptable for small data sets
+            var matches = _sampleDataSource.Groups.Where((group) => group.UniqueId.Equals(uniqueId));
+            if (matches.Count() == 1) return matches.First();
+            return null;
+        }
+
+        public static async Task<ISampleDataItemViewModel> GetItemAsync(string uniqueId)
+        {
+            await _sampleDataSource.GetSampleDataAsync();
+            // Simple linear search is acceptable for small data sets
+            var matches = _sampleDataSource.Groups.SelectMany(group => group.Items).Where((item) =>
+            {
+                if (item is SampleDataItemViewModel)
+                    return ((SampleDataItemViewModel)item).Item.UniqueId.Equals(uniqueId);
+                return false;
+            });
+            if (matches.Count() == 1) return matches.First();
+            return null;
+        }
+
+        private async Task GetSampleDataAsync()
+        {
+            if (this._groups.Count != 0)
+                return;
+
+            Uri dataUri = new Uri("ms-appx:///Pages/SampleData/SampleData.json");
+
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+            string jsonText = await FileIO.ReadTextAsync(file);
+            JsonObject jsonObject = JsonObject.Parse(jsonText);
+            JsonArray jsonArray = jsonObject["Groups"].GetArray();
+
+            foreach (JsonValue groupValue in jsonArray)
+            {
+                JsonObject groupObject = groupValue.GetObject();
+                SampleDataGroup group = new SampleDataGroup(groupObject["UniqueId"].GetString(),
+                                                            groupObject["Title"].GetString(),
+                                                            groupObject["Subtitle"].GetString(),
+                                                            groupObject["ImagePath"].GetString(),
+                                                            groupObject["Description"].GetString());
+
+                var arrayOfItems = groupObject["Items"].GetArray();
+                var index = 0;
+                var currentRowCount = 0;
+                var numberOfItems = arrayOfItems.Count;
+                var random = new Random(numberOfItems);
+                foreach (JsonValue itemValue in arrayOfItems)
+                {
+                    int rowSpan = 1;
+                    if (currentRowCount == 0)
+                    {
+                        rowSpan = random.Next(4) + 1;
+                    }
+                    else
+                    {
+                        if (currentRowCount < 3)
+                            rowSpan = random.Next(3) + 1;
+                        else
+                            rowSpan = 5 - currentRowCount;
+                    }
+                    currentRowCount += rowSpan;
+                    currentRowCount %= 5;
+
+                    JsonObject itemObject = itemValue.GetObject();
+                    group.Items.Add(new SampleDataItemViewModel(new SampleDataItem(itemObject["UniqueId"].GetString(),
+                                                       itemObject["Title"].GetString(),
+                                                       itemObject["Subtitle"].GetString(),
+                                                       itemObject["ImagePath"].GetString(),
+                                                       itemObject["Description"].GetString(),
+                                                       itemObject["Content"].GetString()))
+                                                       {
+                                                           ColSpan = 1,
+                                                           RowSpan = rowSpan,
+                                                       });
+                }
+                if (currentRowCount > 0)
+                    group.Items.Add(new SampleAdViewModel("Assets/White.png")
+                    {
+                        ColSpan = 1,
+                        RowSpan = 5 - currentRowCount,
+                    });
+                this.Groups.Add(group);
+            }
+        }
+    }
+}

@@ -21,6 +21,7 @@ namespace Shell.Infrastructure
             navigationService.RegisterView("MainPage", "/Pages;component/MainPage.xaml");
             navigationService.RegisterView("SecondPage", "/Pages;component/SecondPage.xaml");
             navigationService.RegisterView("LoginPage", "/Pages;component/LoginPage.xaml");
+            navigationService.RegisterView("NoNetworkPage", "/Pages;component/NoNetworkPage.xaml");
 
             var x = typeof(MainPage); // Required to force JIT of Pages.dll
 
@@ -34,6 +35,7 @@ namespace Shell.Infrastructure
             container.RegisterType<ISerializerService, XmlSerializerService>();
             container.RegisterType<IStorageService, IsolatedStorageService>();
             container.RegisterType<ISocialService, FacebookService>();
+            container.RegisterType<INetworkService, NetworkService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();

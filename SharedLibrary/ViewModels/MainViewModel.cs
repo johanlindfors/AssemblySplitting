@@ -24,7 +24,7 @@ namespace SharedLibrary.ViewModels
 
         public override async Task ViewNavigatedTo()
         {
-            await Task.Delay(2000);
+            //await Task.Delay(2000);
             ((RelayCommand)SaveCommand).IsEnabled = true;
         }
 
@@ -35,7 +35,7 @@ namespace SharedLibrary.ViewModels
 
         void SaveAction()
         {
-            navigationService.Navigate("SecondPage");
+            navigationService.Navigate("GroupedItemsPage");
         }
     }
 }

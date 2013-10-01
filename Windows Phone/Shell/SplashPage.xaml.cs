@@ -35,7 +35,7 @@ namespace Shell
             
             UpdateResources();
 
-            await NavigateAwayFromSplashPage();
+            await FinalizeSplashPage();
         }
 
         Task<bool> TryAutoLogin()
@@ -51,19 +51,28 @@ namespace Shell
             ServiceLocator.Resolve<INavigationService>().RemoveBackEntry();
         }
 
-        private async Task NavigateAwayFromSplashPage()
+        private async Task FinalizeSplashPage()
         {
-            var autoLoginResult = await TryAutoLogin();
             var navigationService = ServiceLocator.Resolve<INavigationService>();
-            if (autoLoginResult)
+            var networkService = ServiceLocator.Resolve<INetworkService>();
+            if (await networkService.CheckForNetworkAvailability())
             {
-                Debug.WriteLine("Autologin succeeded, navigating to MainPage");
-                navigationService.Navigate("MainPage");
+                var autoLoginResult = await TryAutoLogin();
+                
+                if (autoLoginResult)
+                {
+                    Debug.WriteLine("Autologin succeeded, navigating to MainPage");
+                    navigationService.Navigate("MainPage");
+                }
+                else
+                {
+                    Debug.WriteLine("Autologin failed, navigating to LoginPage");
+                    navigationService.Navigate("LoginPage");
+                }
             }
             else
             {
-                Debug.WriteLine("Autologin failed, navigating to LoginPage");
-                navigationService.Navigate("LoginPage");
+                navigationService.Navigate("NoNetworkPage");
             }
         }
 

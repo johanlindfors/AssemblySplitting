@@ -27,6 +27,7 @@ namespace Shell.Infrastructure
             var navigationService = new FrameNavigationService(frame);
             navigationService.RegisterView("MainPage", typeof(MainPage));
             navigationService.RegisterView("SecondPage", typeof(SecondPage));
+            navigationService.RegisterView("GroupedItemsPage", typeof(GroupedItemsPage));
             
             var x = typeof(MainPage); // Required to force JIT of Pages.dll
 

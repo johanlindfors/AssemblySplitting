@@ -92,6 +92,7 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\DPAPIProtectionService.cs" />
     <Compile Include="Services\IsolatedStorageService.cs" />
+    <Compile Include="Services\NetworkService.cs" />
     <Compile Include="Services\RootFrameNavigationService.cs" />
     <Compile Include="Services\SettingsService.cs" />
   </ItemGroup>

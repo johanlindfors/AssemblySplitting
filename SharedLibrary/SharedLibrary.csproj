@@ -40,6 +40,8 @@
     <Compile Include="Infrastructure\ServiceLocator.cs" />
     <Compile Include="Infrastructure\Singelton.cs" />
     <Compile Include="Infrastructure\ViewModelBase.cs" />
+    <Compile Include="Models\SampleDataGroup.cs" />
+    <Compile Include="Models\SampleDataItem.cs" />
     <Compile Include="Models\SocialResponse.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Infrastructure\ViewModelLocator.cs" />
@@ -51,6 +53,7 @@
     </Compile>
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
+    <Compile Include="Services\Interfaces\INetworkService.cs" />
     <Compile Include="Services\Interfaces\IProtectionService.cs" />
     <Compile Include="Services\Interfaces\ISerializerService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
@@ -59,8 +62,11 @@
     <Compile Include="Services\XmlSerializerService.cs" />
     <Compile Include="ViewModels\Interfaces\ILoginViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ISampleDataItemViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SampleAdViewModel.cs" />
+    <Compile Include="ViewModels\SampleDataItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
