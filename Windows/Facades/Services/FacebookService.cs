@@ -11,9 +11,6 @@ namespace Facades.Services
     public class FacebookService : ISocialService
     {
         const string APP_ID = "118837091466025"; // TODO: Replace AppId with proper Facebook identification
-        const string REDIRECT_URL = "https://www.facebook.com/connect/login_success.html";
-        const string TOKEN_PARAMETER = @"access_token=";
-        const string EXPIRES_PARAMETER = @"expires_in=";
         const string FACEBOOK_TOKEN_SETTING = "facebook_token";
         const string FACEBOOK_TOKEN_EXPIRES_AT_SETTING = "facebook_token_expires_at";
 
@@ -49,32 +46,6 @@ namespace Facades.Services
                 Debug.WriteLine(ex.Message);
                 result.Result = false;
             }
-            return result;
-        }
-
-        private DateTime ParseAuthenticationTokenExpiresAt(string data)
-        {
-            var result = DateTime.UtcNow;
-            try
-            {
-                var tokenEndsAtIndex = data.IndexOf(EXPIRES_PARAMETER) + EXPIRES_PARAMETER.Length;
-                var secondsAsString = data.Substring(tokenEndsAtIndex, data.Length - tokenEndsAtIndex);
-                result = DateTime.UtcNow.AddSeconds(double.Parse(secondsAsString));
-            }
-            catch { }
-            return result;
-        }
-
-        private string ParseAuthenticationToken(string data)
-        {
-            var result = string.Empty;
-            try
-            {
-                var tokenBeginsAtIndex = data.IndexOf(TOKEN_PARAMETER) + TOKEN_PARAMETER.Length;
-                var tokenEndsAtIndex = data.IndexOf(EXPIRES_PARAMETER);
-                result = data.Substring(tokenBeginsAtIndex, tokenEndsAtIndex - tokenBeginsAtIndex - 1);
-            }
-            catch { }
             return result;
         }
 
