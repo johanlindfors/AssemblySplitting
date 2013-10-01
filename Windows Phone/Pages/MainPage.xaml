@@ -39,7 +39,7 @@
     <transitionLibrary:TransitionService.NavigationInTransition>
         <transitionLibrary:NavigationInTransition>
             <transitionLibrary:NavigationInTransition.Forward>
-                <customTransitions:CustomTransition TransitionType="SlideUpFromBelow" />
+                <customTransitions:CustomTransition TransitionType="{StaticResource mainPageTransition}" />
             </transitionLibrary:NavigationInTransition.Forward>
         </transitionLibrary:NavigationInTransition>
     </transitionLibrary:TransitionService.NavigationInTransition>

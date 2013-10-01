@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using SharedLibrary.Infrastructure;
 using SharedLibrary.Services.Interfaces;
+using TransitionLibrary.Transitions.Transitions;
 
 namespace Pages
 {
@@ -17,6 +18,16 @@ namespace Pages
         public LoginPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (e.Uri.OriginalString.Contains("fromLogin"))
+            {
+                Application.Current.Resources.Remove("mainPageTransition");
+                Application.Current.Resources.Add("mainPageTransition",PageTransitionType.ZoomIn);
+            }
+            base.OnNavigatingFrom(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

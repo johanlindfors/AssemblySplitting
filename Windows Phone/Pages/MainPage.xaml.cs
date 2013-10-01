@@ -5,6 +5,7 @@ using SharedLibrary.Services.Interfaces;
 using SharedLibrary.Infrastructure;
 using SharedLibrary.ViewModels.Interfaces;
 using System.Windows.Navigation;
+using TransitionLibrary.Transitions.Transitions;
 
 namespace Pages
 {

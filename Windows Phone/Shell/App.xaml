@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:transitionLibrary="clr-namespace:Microsoft.Phone.Controls;assembly=TransitionLibrary"
+    xmlns:customTransitions="clr-namespace:TransitionLibrary.Transitions.Transitions;assembly=TransitionLibrary"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!--Application Resources-->
@@ -42,6 +43,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <customTransitions:PageTransitionType x:Key="mainPageTransition">SlideUpFromBelow</customTransitions:PageTransitionType>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

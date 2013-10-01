@@ -2,6 +2,7 @@
 using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -55,7 +56,9 @@ namespace SharedLibrary.ViewModels
                 var result = await service.SignIn();
                 if (result.Result)
                 {
-                    navigationService.Navigate("MainPage");
+                    var parameters = new Dictionary<string, object>();
+                    parameters.Add("fromLogin", true);
+                    navigationService.Navigate("MainPage", parameters);
                 }
             }
             catch { }
