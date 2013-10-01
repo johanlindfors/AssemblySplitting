@@ -4,6 +4,7 @@ using SharedLibrary.Models;
 using SharedLibrary.Services.Interfaces;
 using System;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Threading.Tasks;
 
 namespace Facades.Services
@@ -11,6 +12,7 @@ namespace Facades.Services
     public class FacebookService : ISocialService
     {
         const string APP_ID = "118837091466025"; // TODO: Replace AppId with proper Facebook identification
+        const string APP_SECRET = "9a71b58f0bf11f5cd68bcf0ef77b33d9";
         const string FACEBOOK_TOKEN_SETTING = "facebook_token";
         const string FACEBOOK_TOKEN_EXPIRES_AT_SETTING = "facebook_token_expires_at";
 
@@ -36,6 +38,7 @@ namespace Facades.Services
                     settings.Set(FACEBOOK_TOKEN_SETTING, session.AccessToken);
                     settings.Set(FACEBOOK_TOKEN_EXPIRES_AT_SETTING, session.Expires.ToFileTimeUtc());
                     var userInfo = await GetUserInfo();
+                    await GetExtendedToken();
                 }
                 Debug.WriteLine(session.AccessToken);
                 Debug.WriteLine(session.FacebookId);
@@ -47,6 +50,35 @@ namespace Facades.Services
                 result.Result = false;
             }
             return result;
+        }
+
+        private async Task GetExtendedToken()
+        {
+            try
+            {
+                var accessToken = settings.Get<string>(FACEBOOK_TOKEN_SETTING);
+                if (!string.IsNullOrEmpty(accessToken))
+                {
+                    var facebookClient = new FacebookClient(accessToken);
+                    dynamic parameters = new ExpandoObject();
+                    parameters.client_id = APP_ID;
+                    parameters.client_secret = APP_SECRET;
+                    parameters.grant_type = "fb_exchange_token";
+                    parameters.fb_exchange_token = accessToken;
+                    //parameters.redirect_uri = "https://www.facebook.com/connect/login_success.html";
+
+                    dynamic tokenResponse = await facebookClient.GetTaskAsync("oauth/access_token",parameters);
+                    if (!string.IsNullOrEmpty(tokenResponse.access_token))
+                    {
+                        settings.Set<string>(FACEBOOK_TOKEN_SETTING, tokenResponse.access_token);
+                        settings.Set(FACEBOOK_TOKEN_EXPIRES_AT_SETTING, DateTime.UtcNow.AddSeconds((int)tokenResponse.expires).ToFileTimeUtc());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         /*
@@ -113,6 +145,7 @@ namespace Facades.Services
                     if (result)
                     {
                         var userInfo = await GetUserInfo();
+                        await GetExtendedToken();
                     }
                 }
             }
