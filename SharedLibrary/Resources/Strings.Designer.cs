@@ -69,5 +69,50 @@ namespace SharedLibrary.Resources {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to login.
+        /// </summary>
+        public static string LoginPageLoginButtonCaption {
+            get {
+                return ResourceManager.GetString("LoginPageLoginButtonCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to login with facebook.
+        /// </summary>
+        public static string LoginPageLoginWithFacebookButtonCaption {
+            get {
+                return ResourceManager.GetString("LoginPageLoginWithFacebookButtonCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to password.
+        /// </summary>
+        public static string LoginPagePasswordHeader {
+            get {
+                return ResourceManager.GetString("LoginPagePasswordHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to register.
+        /// </summary>
+        public static string LoginPageRegisterButtonCaption {
+            get {
+                return ResourceManager.GetString("LoginPageRegisterButtonCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to username.
+        /// </summary>
+        public static string LoginPageUsernameHeader {
+            get {
+                return ResourceManager.GetString("LoginPageUsernameHeader", resourceCulture);
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels.Interfaces;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Pages
 {
@@ -14,7 +15,7 @@ namespace Pages
             this.InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 

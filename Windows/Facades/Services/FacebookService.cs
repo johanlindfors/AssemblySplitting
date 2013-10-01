@@ -3,18 +3,14 @@ using Facebook.Client;
 using SharedLibrary.Models;
 using SharedLibrary.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.Security.Authentication.Web;
 
 namespace Facades.Services
 {
     public class FacebookService : ISocialService
     {
-        const string APP_ID = "118837091466025";
+        const string APP_ID = "118837091466025"; // TODO: Replace AppId with proper Facebook identification
         const string REDIRECT_URL = "https://www.facebook.com/connect/login_success.html";
         const string TOKEN_PARAMETER = @"access_token=";
         const string EXPIRES_PARAMETER = @"expires_in=";

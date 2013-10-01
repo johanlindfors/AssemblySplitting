@@ -120,4 +120,19 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>ASSEMBLY SPLITTING (from library)</value>
   </data>
+  <data name="LoginPageLoginButtonCaption" xml:space="preserve">
+    <value>login</value>
+  </data>
+  <data name="LoginPageLoginWithFacebookButtonCaption" xml:space="preserve">
+    <value>login with facebook</value>
+  </data>
+  <data name="LoginPagePasswordHeader" xml:space="preserve">
+    <value>password</value>
+  </data>
+  <data name="LoginPageRegisterButtonCaption" xml:space="preserve">
+    <value>register</value>
+  </data>
+  <data name="LoginPageUsernameHeader" xml:space="preserve">
+    <value>username</value>
+  </data>
 </root>

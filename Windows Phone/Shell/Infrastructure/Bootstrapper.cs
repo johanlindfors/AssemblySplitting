@@ -20,7 +20,7 @@ namespace Shell.Infrastructure
             var navigationService = new RootFrameNavigationService(App.RootFrame);
             navigationService.RegisterView("MainPage", "/Pages;component/MainPage.xaml");
             navigationService.RegisterView("SecondPage", "/Pages;component/SecondPage.xaml");
-            navigationService.RegisterView("ThirdPage", "/Pages;component/ThirdPage.xaml");
+            navigationService.RegisterView("LoginPage", "/Pages;component/LoginPage.xaml");
 
             var x = typeof(MainPage); // Required to force JIT of Pages.dll
 
@@ -33,9 +33,11 @@ namespace Shell.Infrastructure
             container.RegisterType<ISettingsService, SettingsService>();
             container.RegisterType<ISerializerService, XmlSerializerService>();
             container.RegisterType<IStorageService, IsolatedStorageService>();
+            container.RegisterType<ISocialService, FacebookService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();
+            container.RegisterType<ILoginViewModel, LoginViewModel>();
 
             // Register container for ViewModelLocator
             var containerWrapper = new UnityContainerWrapper(container);

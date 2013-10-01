@@ -1,0 +1,56 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:transitionLibrary="clr-namespace:Microsoft.Phone.Controls;assembly=TransitionLibrary"
+    xmlns:customTransitions="clr-namespace:TransitionLibrary.Transitions.Transitions;assembly=TransitionLibrary"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False"
+    DataContext="{Binding Login,Source={StaticResource ViewModelLocator}}">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,117,12,28">
+            <TextBlock Text="{Binding Strings.LoginPageUsernameHeader, Source={StaticResource LocalizedStrings}, FallbackValue='username'}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+            <TextBox/>
+            <TextBlock Text="{Binding Strings.LoginPagePasswordHeader, Source={StaticResource LocalizedStrings}, FallbackValue='password'}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+            <TextBox/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="{Binding Strings.LoginPageRegisterButtonCaption, Source={StaticResource LocalizedStrings}, FallbackValue='register'}"
+                        Command="{Binding LoginCommand}"/>
+                <Button Content="{Binding Strings.LoginPageLoginButtonCaption, Source={StaticResource LocalizedStrings}, FallbackValue='login'}" 
+                        Command="{Binding RegisterCommand}"
+                        Grid.Column="1"/>
+            </Grid>
+            <Button Content="{Binding Strings.LoginPageLoginWithFacebookButtonCaption, Source={StaticResource LocalizedStrings}, FallbackValue='login with facebook'}" Command="{Binding LoginWithFacebookCommand}"/>
+       </StackPanel>
+
+    </Grid>
+
+    <transitionLibrary:TransitionService.NavigationInTransition>
+        <transitionLibrary:NavigationInTransition>
+            <transitionLibrary:NavigationInTransition.Forward>
+                <customTransitions:CustomTransition TransitionType="SlideUpFromBelow" />
+            </transitionLibrary:NavigationInTransition.Forward>
+        </transitionLibrary:NavigationInTransition>
+    </transitionLibrary:TransitionService.NavigationInTransition>
+
+</phone:PhoneApplicationPage>

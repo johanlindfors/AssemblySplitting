@@ -39,7 +39,13 @@ namespace Shell
             
             UpdateResources();
 
-            NavigateAwayFromSplashPage();
+            await NavigateAwayFromSplashPage();
+        }
+
+        Task<bool> TryAutoLogin()
+        {
+            var socialService = ServiceLocator.Resolve<ISocialService>();
+            return socialService.ValidateToken();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -49,10 +55,20 @@ namespace Shell
             ServiceLocator.Resolve<INavigationService>().RemoveBackEntry();
         }
 
-        private void NavigateAwayFromSplashPage()
+        private async Task NavigateAwayFromSplashPage()
         {
-            Debug.WriteLine("Navigating to MainPage");
-            ServiceLocator.Resolve<INavigationService>().Navigate("MainPage");
+            var autoLoginResult = await TryAutoLogin();
+            var navigationService = ServiceLocator.Resolve<INavigationService>();
+            if (autoLoginResult)
+            {
+                Debug.WriteLine("Autologin succeeded, navigating to MainPage");
+                navigationService.Navigate("MainPage");
+            }
+            else
+            {
+                Debug.WriteLine("Autologin failed, navigating to LoginPage");
+                navigationService.Navigate("LoginPage");
+            }
         }
 
         private void UpdateResources()

@@ -19,5 +19,10 @@ namespace SharedLibrary.Infrastructure
         {
             get { return sharedInstance.Resolve<IMainViewModel>(); }
         }
+
+        public ILoginViewModel Login
+        {
+            get { return sharedInstance.Resolve<ILoginViewModel>(); }
+        }
     }
 }
