@@ -103,7 +103,7 @@
                     </GroupStyle.HeaderTemplate>
                     <GroupStyle.Panel>
                         <ItemsPanelTemplate>
-                            <VariableSizedWrapGrid ItemHeight="130" ItemWidth="300" MaximumRowsOrColumns="5" Orientation="Vertical" Margin="0,0,80,0"/>
+                            <VariableSizedWrapGrid ItemHeight="130" ItemWidth="300" MaximumRowsOrColumns="{Binding MaxRows, Source={StaticResource DeviceSpecificsLocator}}" Orientation="Vertical" Margin="0,0,80,0"/>
                         </ItemsPanelTemplate>
                     </GroupStyle.Panel>
                 </GroupStyle>

@@ -17,7 +17,6 @@ namespace Pages.Helpers.Tiles
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
             Rect windowBounds = Window.Current.Bounds;
-
             //change num visible items in height based on window height
             //element.SetValue(VariableSizedWrapGrid.MaximumRowsOrColumnsProperty, 4);
 

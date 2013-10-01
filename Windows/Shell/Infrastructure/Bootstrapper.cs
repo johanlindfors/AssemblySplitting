@@ -42,6 +42,7 @@ namespace Shell.Infrastructure
             container.RegisterType<ISocialService, FacebookService>();
             container.RegisterType<ISerializerService, XmlSerializerService>();
             container.RegisterType<IStorageService, LocalFolderStorageService>();
+            container.RegisterType<IDeviceSpecificsService, DeviceSpecificsService>();
 
             // ViewModels
             container.RegisterType<IMainViewModel, MainViewModel>();

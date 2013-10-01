@@ -72,6 +72,7 @@ namespace Shell
         {
             App.Current.Resources.Add("LocalizedStrings", new LocalizedStrings());
             App.Current.Resources.Add("ViewModelLocator", new ViewModelLocator(ServiceLocator.Resolve<IContainer>()));
+            App.Current.Resources.Add("DeviceSpecificsLocator", new DeviceSpecificsLocator(ServiceLocator.Resolve<IContainer>()));
         }
     }
 }

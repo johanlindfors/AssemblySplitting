@@ -1,4 +1,6 @@
-﻿using SharedLibrary.Models;
+﻿using SharedLibrary.Infrastructure;
+using SharedLibrary.Models;
+using SharedLibrary.Services.Interfaces;
 using SharedLibrary.ViewModels;
 using SharedLibrary.ViewModels.Interfaces;
 using System;
@@ -12,12 +14,6 @@ using Windows.Storage;
 
 namespace Pages.SampleData
 {
-    /// <summary>
-    /// Creates a collection of groups and items with content read from a static json file.
-    /// 
-    /// SampleDataSource initializes with data read from a static json file included in the 
-    /// project.  This provides sample data at both design-time and run-time.
-    /// </summary>
     public sealed class SampleDataSource
     {
         private static SampleDataSource _sampleDataSource = new SampleDataSource();
@@ -63,6 +59,7 @@ namespace Pages.SampleData
             if (this._groups.Count != 0)
                 return;
 
+            int max_rows = ServiceLocator.Resolve<IDeviceSpecificsService>().MaxRows;
             Uri dataUri = new Uri("ms-appx:///Pages/SampleData/SampleData.json");
 
             StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
@@ -84,22 +81,23 @@ namespace Pages.SampleData
                 var currentRowCount = 0;
                 var numberOfItems = arrayOfItems.Count;
                 var random = new Random(numberOfItems);
+                
                 foreach (JsonValue itemValue in arrayOfItems)
                 {
                     int rowSpan = 1;
                     if (currentRowCount == 0)
                     {
-                        rowSpan = random.Next(4) + 1;
+                        rowSpan = random.Next(max_rows-1) + 1;
                     }
                     else
                     {
-                        if (currentRowCount < 3)
-                            rowSpan = random.Next(3) + 1;
+                        if (currentRowCount < max_rows-2)
+                            rowSpan = random.Next(max_rows-2) + 1;
                         else
-                            rowSpan = 5 - currentRowCount;
+                            rowSpan = max_rows - currentRowCount;
                     }
                     currentRowCount += rowSpan;
-                    currentRowCount %= 5;
+                    currentRowCount %= max_rows;
 
                     JsonObject itemObject = itemValue.GetObject();
                     group.Items.Add(new SampleDataItemViewModel(new SampleDataItem(itemObject["UniqueId"].GetString(),
@@ -117,7 +115,7 @@ namespace Pages.SampleData
                     group.Items.Add(new SampleAdViewModel("Assets/White.png")
                     {
                         ColSpan = 1,
-                        RowSpan = 5 - currentRowCount,
+                        RowSpan = max_rows - currentRowCount,
                     });
                 this.Groups.Add(group);
             }

@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\DeviceSpecificsLocator.cs" />
     <Compile Include="Infrastructure\Ioc\IContainer.cs" />
     <Compile Include="Infrastructure\LocalizedStrings.cs" />
     <Compile Include="Infrastructure\ObservableObject.cs" />
@@ -51,6 +52,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Interfaces\IDeviceSpecificsService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
     <Compile Include="Services\Interfaces\INetworkService.cs" />
