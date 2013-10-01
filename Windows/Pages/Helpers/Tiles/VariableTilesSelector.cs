@@ -27,7 +27,19 @@ namespace Pages.Helpers.Tiles
             {
                 if (item is SampleDataItemViewModel)
                 {
-                    return SingleRowItemTemplate;
+                    switch (((SampleDataItemViewModel)item).RowSpan)
+                    {
+                        case 2:
+                            return DoubleRowItemTemplate;
+                        case 3:
+                            return TripleRowItemTemplate;
+                        case 4:
+                            return QuadRowItemTemplate;
+                        case 5:
+                            return FullColumnItemTemplate;
+                        default:
+                            return SingleRowItemTemplate;
+                    }                    
                 } 
                 else if (item is SampleAdViewModel)
                 {

@@ -33,23 +33,77 @@
                 <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
                     <Image Source="{Binding Item.ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Item.Title}"/>
                 </Border>
-                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                <!--<StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
                     <TextBlock Text="{Binding Item.Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="40" Margin="15,0,15,0"/>
                     <TextBlock Text="{Binding Item.Subtitle}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>-->
+                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="1" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="40" Margin="15,0,15,0"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
+
+        <DataTemplate x:Key="SampleItemTemplateDoubleRow">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding Item.ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Item.Title}"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="2" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="40" Margin="15,0,15,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SampleItemTemplateTripleRow">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding Item.ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Item.Title}"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="3" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="40" Margin="15,0,15,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SampleItemTemplateQuadRow">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding Item.ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Item.Title}"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="4" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="40" Margin="15,0,15,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SampleItemTemplateFullColumn">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding Item.ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Item.Title}"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="5" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" Height="40" Margin="15,0,15,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
 
         <DataTemplate x:Key="SampleAdTemplate">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
                     <Image Source="{Binding ImagePath}" Stretch="UniformToFill"/>
                 </Border>
+                <TextBlock Text="AD" Foreground="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="40"/>
             </Grid>
         </DataTemplate>
 
         <tiles:VariableTilesSelector x:Key="VariableTilesTemplateSelector"
                                      SingleRowItemTemplate="{StaticResource SampleItemTemplate}"
+                                     DoubleRowItemTemplate="{StaticResource SampleItemTemplateDoubleRow}"
+                                     TripleRowItemTemplate="{StaticResource SampleItemTemplateTripleRow}"
+                                     QuadRowItemTemplate="{StaticResource SampleItemTemplateQuadRow}"
+                                     FullColumnItemTemplate="{StaticResource SampleItemTemplateFullColumn}"
                                      AdItemTemplate="{StaticResource SampleAdTemplate}"/>
     </Page.Resources>
 

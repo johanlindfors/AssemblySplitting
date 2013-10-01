@@ -69,6 +69,7 @@ namespace Pages.SampleData
             JsonObject jsonObject = JsonObject.Parse(jsonText);
             JsonArray jsonArray = jsonObject["Groups"].GetArray();
 
+            var random = new Random();
             foreach (JsonValue groupValue in jsonArray)
             {
                 JsonObject groupObject = groupValue.GetObject();
@@ -82,7 +83,6 @@ namespace Pages.SampleData
                 var index = 0;
                 var currentRowCount = 0;
                 var numberOfItems = arrayOfItems.Count;
-                var random = new Random(numberOfItems);
                 
                 foreach (JsonValue itemValue in arrayOfItems)
                 {
