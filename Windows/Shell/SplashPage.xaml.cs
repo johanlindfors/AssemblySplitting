@@ -31,7 +31,15 @@ namespace Shell
 
             UpdateResources();
 
+            var result = await TryAutoLogin();
+
             NavigateAwayFromSplashPage();
+        }
+
+        Task<bool> TryAutoLogin()
+        {
+            var socialService = ServiceLocator.Resolve<ISocialService>();
+            return socialService.ValidateToken();
         }
 
         async Task SomeAsyncWork()
