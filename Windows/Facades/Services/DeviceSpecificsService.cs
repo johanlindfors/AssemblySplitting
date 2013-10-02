@@ -14,15 +14,9 @@ namespace Facades.Services
         {
             get
             {
-                var height = Window.Current.Bounds.Height;
-                if (height <= 800)
-                    return 4;
-                else if (height <= 900)
-                    return 5;
-                else if (height < 1400)
-                    return 6;
-                else
-                    return 8;
+                int height = (int)Window.Current.Bounds.Height;
+                int controlHeight = height - 200; // Header elements on page
+                return controlHeight / 140;
             }
         }
     }
