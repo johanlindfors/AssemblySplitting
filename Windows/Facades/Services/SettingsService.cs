@@ -10,14 +10,30 @@ namespace Facades.Services
 {
     public class SettingsService : ISettingsService
     {
+        private SettingsPolicy policy;
+
+        public SettingsService()
+        {
+
+        }
+
+        public SettingsService(SettingsPolicy policy) : this()
+        {
+            this.policy = policy;
+        }
+
         public T Get<T>(string key)
         {
-            var result =default(T);
+            var result = default(T);
             try
             {
-                var localSettings = ApplicationData.Current.LocalSettings;
-                if (localSettings.Values.ContainsKey(key))
-                    result = (T)localSettings.Values[key];
+                ApplicationDataContainer settings;
+                if (policy == SettingsPolicy.Roaming)
+                    settings = ApplicationData.Current.RoamingSettings;
+                else
+                    settings = ApplicationData.Current.LocalSettings;
+                if (settings.Values.ContainsKey(key))
+                    result = (T)settings.Values[key];
             }
             catch { }
             return result;
@@ -25,15 +41,22 @@ namespace Facades.Services
 
         public void Set<T>(string key, T value)
         {
-            var localSettings = ApplicationData.Current.LocalSettings;
-
-            localSettings.Values[key] = value;
+            ApplicationDataContainer settings;
+            if (policy == SettingsPolicy.Roaming)
+                settings = ApplicationData.Current.RoamingSettings;
+            else
+                settings = ApplicationData.Current.LocalSettings;
+            settings.Values[key] = value;
         }
 
         public void Remove(string key)
         {
-            var localSettings = ApplicationData.Current.LocalSettings;
-            localSettings.Values.Remove(key);
+            ApplicationDataContainer settings;
+            if (policy == SettingsPolicy.Roaming)
+                settings = ApplicationData.Current.RoamingSettings;
+            else
+                settings = ApplicationData.Current.LocalSettings;
+            settings.Values.Remove(key);
         }
     }
 }

@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary.Services.Interfaces
 {
+    public enum SettingsPolicy
+    {
+        Local = 0,
+        Roaming,
+    }
+
     public interface ISettingsService
     {
         T Get<T>(string key);

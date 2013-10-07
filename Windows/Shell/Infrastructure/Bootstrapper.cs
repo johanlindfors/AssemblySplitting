@@ -38,7 +38,7 @@ namespace Shell.Infrastructure
 
             container.RegisterType<IDialogService, DialogService>();
             container.RegisterType<IProtectionService, DPAPIProtectionService>();
-            container.RegisterType<ISettingsService, SettingsService>();
+            container.RegisterType<ISettingsService, SettingsService>(new InjectionConstructor(SettingsPolicy.Roaming));
             container.RegisterType<ISocialService, FacebookService>();
             container.RegisterType<ISerializerService, XmlSerializerService>();
             container.RegisterType<IStorageService, LocalFolderStorageService>();
